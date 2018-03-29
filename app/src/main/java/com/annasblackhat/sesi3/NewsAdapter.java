@@ -41,10 +41,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final NewsViewHolder holder, final int position) {
         News news = newsList.get(position);
         holder.txtTitle.setText(news.getTitle());
         holder.txtDate.setText(news.getDate());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("position : "+position);
+                System.out.println("adapter position : "+holder.getAdapterPosition());
+
+                //do not use position, but use getAdapterPosition()
+                newsList.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
